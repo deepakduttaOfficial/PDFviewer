@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from "react";
+import "./style/App.css";
+import PdfWidth from "./context/PdfWidth";
+import Navbar from "./navbar/Navbar";
+import PdfMain from "./PdfMain";
+import Pages from "./context/Pages";
+import TotalPage from "./context/TotalPage";
 function App() {
+  const [pdfWidth, setPdfWidth] = useState(600);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [numPages, setNumPages] = useState(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TotalPage.Provider value={{ numPages, setNumPages }}>
+      <Pages.Provider value={{ pageNumber, setPageNumber }}>
+        <PdfWidth.Provider value={{ pdfWidth, setPdfWidth }}>
+          <Navbar />
+          <PdfMain />
+        </PdfWidth.Provider>
+      </Pages.Provider>
+    </TotalPage.Provider>
   );
 }
 
