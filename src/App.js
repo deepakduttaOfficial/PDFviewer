@@ -6,7 +6,7 @@ import PdfMain from "./PdfMain";
 import Pages from "./context/Pages";
 import TotalPage from "./context/TotalPage";
 function App() {
-  const [pdfWidth, setPdfWidth] = useState(600);
+  const [pdfWidth, setPdfWidth] = useState(300);
   const [pageNumber, setPageNumber] = useState(1);
   const [numPages, setNumPages] = useState(null);
 

@@ -7,7 +7,7 @@ const Sizebar = () => {
   const sizes = [];
   const { pdfWidth, setPdfWidth } = useContext(PdfWidth);
 
-  let num = 400;
+  let num = 200;
   for (let i = 50; i < 110; i++) {
     sizes.push((num += 50));
   }

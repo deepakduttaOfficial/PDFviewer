@@ -5,67 +5,23 @@ import {
   useColorModeValue,
   Stack,
   useColorMode,
-  HStack,
+  useMediaQuery,
 } from "@chakra-ui/react";
-import { MoonIcon, SunIcon, MinusIcon, SmallAddIcon } from "@chakra-ui/icons";
-import Hamburger from "hamburger-react";
-import { useContext, useState } from "react";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import PdfWidth from "../context/PdfWidth";
 import Sizebar from "./Sizebar";
-import Page from "./Page";
-
-const NewButton = ({ name, onClick }) => {
-  return (
-    <Button
-      px={2}
-      py={1}
-      rounded={"md"}
-      _hover={{
-        textDecoration: "none",
-        bg: useColorModeValue("gray.200", "gray.700"),
-      }}
-      onClick={onClick}
-    >
-      {name}
-    </Button>
-  );
-};
+import MobileNav from "./MobileNav";
+import PageDel from "./PageDel";
 
 const Navbar = () => {
-  const [isOpen, setOpen] = useState(false);
+  const [isLargerThan1280] = useMediaQuery("(min-width: 48em)");
   const { colorMode, toggleColorMode } = useColorMode(PdfWidth);
   const bgColorNav = useColorModeValue("gray.300", "gray.900");
-  let { pdfWidth, setPdfWidth } = useContext(PdfWidth);
   return (
     <Box bg={bgColorNav} px={4}>
       <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-        <Hamburger toggled={isOpen} toggle={setOpen} size={20} />
-        <Stack spacing={5} direction="row">
-          <HStack>
-            <NewButton
-              name={<MinusIcon />}
-              onClick={() => {
-                if (pdfWidth < 450) {
-                  alert("This is min size");
-                } else {
-                  setPdfWidth((pdfWidth -= 50));
-                }
-              }}
-            />
-            <Box mx={5}>{pdfWidth}</Box>
-            <NewButton
-              name={<SmallAddIcon />}
-              onClick={() => {
-                if (pdfWidth > 3000) {
-                  alert("This is Max size");
-                } else {
-                  setPdfWidth((pdfWidth += 50));
-                }
-              }}
-            />
-          </HStack>
-          <Page />
-        </Stack>
+        <MobileNav />
+        {isLargerThan1280 && <PageDel />}
 
         <Flex alignItems={"center"}>
           <Stack direction={"row"} spacing={7}>
