@@ -17,13 +17,14 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
-import pdf from "../JavascriptProject.pdf";
 import { Box } from "@chakra-ui/react";
 import TotalPage from "../context/TotalPage";
 import Pages from "../context/Pages";
 import PageDel from "./PageDel";
+import GetPdf from "../context/GetPdf";
 
 const MobileNav = () => {
+  const { value } = useContext(GetPdf);
   const [isLargerThan1280] = useMediaQuery("(min-width: 48em)");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
@@ -61,7 +62,7 @@ const MobileNav = () => {
             <Stack alignItems={"center"} my={5}>
               {!isLargerThan1280 && <PageDel />}
             </Stack>
-            <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}>
+            <Document file={value} onLoadSuccess={onDocumentLoadSuccess}>
               {pageArr.map((index) => {
                 return (
                   <LinkBox
@@ -86,9 +87,8 @@ const MobileNav = () => {
 
           <DrawerFooter>
             <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
+              Close
             </Button>
-            <Button colorScheme="blue">Save</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
